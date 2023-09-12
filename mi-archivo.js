@@ -1,3 +1,63 @@
+let productos = [
+    { id: 1, nombre: "IPHONE 15 PLUS", categoria: "celulares", stock: 8, precio: 2300 },
+    { id: 2, nombre: "IPHONE 15", categoria: "celulares", stock: 30, precio: 1990 },
+    { id: 3, nombre: "IPHONE 15 PRO MAX", categoria: "celulares", stock: 30, precio: 2599 },
+    { id: 4, nombre: "IPHONE 14 PRO MAX", categoria: "celulares", stock: 30, precio: 1899 },
+    { id: 5, nombre: "IPHONE 14 PRO", categoria: "celulares", stock: 30, precio: 1600 },
+    { id: 6, nombre: "APPLE AIRPODS - GEN 3", categoria: "accesorios", stock: 4, precio: 499 },
+    { id: 7, nombre: "APPLE AIRPODS - GEN 4", categoria: "accesorios", stock: 4, precio: 350 },
+    { id: 8, nombre: "APPLE KEYBOARD - GEN 1", categoria: "accesorios", stock: 4, precio: 280 },
+    { id: 9, nombre: "APPLE MACBOOK - GEN3", categoria: "computadores", stock: 1, precio: 7500 },
+    { id: 10, nombre: "APPLE MAC CHIP M1", categoria: "computadores", stock: 1, precio: 2500 },
+    { id: 11, nombre: "APPLE MAC CHIP M2", categoria: "computadores", stock: 1, precio: 4350 },
+    { id: 12, nombre: "APPLE iPAD 10", categoria: "tablets", stock: 0, precio: 1200 },
+    { id: 13, nombre: "APPLE iPAD 8", categoria: "tablets", stock: 0, precio: 800 },
+    { id: 14, nombre: "APPLE iPAD", categoria: "tablets", stock: 0, precio: 359 },
+    { id: 15, nombre: "IPHONE 13", categoria: "celulares", stock: 1, precio: 750 },
+    { id: 16, nombre: "IPHONE SE 2021", categoria: "celulares", stock: 0, precio: 650 },
+    { id: 17, nombre: "IPHONE 13 PRO MAX", categoria: "celulares", stock: 2, precio: 999 },
+]
+
+InicioDeSesion()
+principal(productos)
+function principal(productos) {
+    let carrito = []
+    let opcion
+    do {
+        opcion = Number(prompt("Ingrese opción:\n1 - listar productos\n2 - filtrar por categoria\n3 - agregar producto al carrito\n4 - ordenar por precio asc\n5 - finalizar compra\n0 - para salir"))
+        switch (opcion) {
+            case 1:
+                alert(listar(productos))
+                break
+            case 2:
+                alert(filtrarPorCategoria(productos));
+                break;
+
+            default:
+                break
+        }
+    } while (opcion != 0)
+}
+
+function listar(productos) {
+    return productos.map(producto => producto.id + " - " + producto.nombre + " - USD" + producto.precio).join("\n")
+}
+function obtenerCategorias(productos) {
+    const categorias = productos.map(producto => producto.categoria);
+    return [...new Set(categorias)]
+}
+function filtrarPorCategoria(productos) {
+    const categoriasDisponibles = obtenerCategorias(productos)
+    const categoriaSeleccionada = prompt("Ingrese la categoría que desea filtrar:\n Categorías disponibles: " + categoriasDisponibles.join(", "))
+
+    const productosFiltrados = productos.filter(producto => producto.categoria.toLowerCase() === categoriaSeleccionada)
+
+    if (productosFiltrados.length === 0) {
+        return "No se encontraron productos en la categoría seleccionada."
+    } else {
+        return "Productos en la categoría " + categoriaSeleccionada + ":\n" + listar(productosFiltrados)
+    }
+}
 function InicioDeSesion() {
     alert("Bienvenido a iPlace, la tienda oficial de venta de productos Apple en Uruguay! Por favor, pulsa ENTER para continuar al inicio de sesion.")
 
@@ -6,10 +66,10 @@ function InicioDeSesion() {
     let contador = 0;
     let inicioCorrecto = false;
     do {
-       const usuario = prompt("Ingrese usuario")
-       const contrasenia = prompt("Ingrese contraseña")
+        const usuario = prompt("Ingrese usuario")
+        const contrasenia = prompt("Ingrese contraseña")
         contador++
-    
+
         if (usuario === usuarioBD && contrasenia === contraseniaBD) {
             alert("Bienvenido " + usuario);
             inicioCorrecto = true
@@ -18,153 +78,10 @@ function InicioDeSesion() {
             alert("Usuario y/o contraseña incorrecto/s");
         }
     } while (contador < 3)
-    
+
     if (contador === 3 && !inicioCorrecto) {
         alert("Agotaste tus intentos, volvé más tarde");
-    
+
     }
-    if(inicioCorrecto){
-        menuPrincipal();
-    }
-    
+
 } 
-
-function menuPrincipal() {
-    let opcionIngresda;
-    do {
-        opcionIngresda = prompt("Ingrese:\n1 para tienda de celulares iPhone\n2 para ingresar a la tienda de PCs y tablets\n3 para tienda de accesorios\n4 para salir");
-        switch (opcionIngresda) {
-            case "1":
-                alert("Elegiste la tienda de compra de celulares");
-                mostrarCelulares();
-                break;
-            case "2":
-                alert("Elegiste la tienda de compra de equipos o tablets");
-                mostrarEquYTablets();
-                break;
-            case "3":
-                alert("Ingresaste a la tienda de accesorios");
-                mostrarAccesorios();
-                break;
-            case "4":
-                alert("Esperamos verte pronto otra vez por nuestras tiendas");
-                break;
-            default:
-                alert("No ingresaste una opción válida");
-        }
-    } while (opcionIngresda !== "4");
-}
-
-function mostrarCelulares() {
-    let opcion;
-    let total = 0;
-    let mensaje =
-        "Ingrese qué producto desea comprar:\n1- Comprar IPHONE 14 PRO MAX USD 2000,\n2- Comprar IPHONE 14 USD 1500,\n3- IPHONE 13 PRO MAX USD 1200,\n4- Finalizar compra / salir";
-
-    do {
-        opcion = Number(prompt(mensaje));
-        switch (opcion) {
-            case 1:
-                alert('Se agregó un IPHONE 14 PRO MAX al carrito');
-                total += 2000;
-                break;
-            case 2:
-                alert('Se agregó un IPHONE 14 al carrito');
-                total += 1500;
-                break;
-            case 3:
-                alert('Se agregó un IPHONE 13 PRO MAX al carrito');
-                total += 1200;
-                break;
-            case 4:
-                let finalizar = prompt("¿Desea finalizar la compra? si/no").toLowerCase();
-                if (finalizar === "no") {
-                    total = 0;
-                    alert("Puedes seguir con tu compra");
-                } else if (finalizar === "si") {
-                    alert("El total a pagar es USD " + total);
-                }
-                break;
-            default:
-                alert("Opción inválida. Por favor, elija una opción válida.");
-        }
-    } while (opcion !== 4);
-}
-    
-
-function mostrarEquYTablets() {
-    let opcion;
-    let total = 0;
-    let mensaje =
-        "Ingrese qué producto desea comprar:\n1- Comprar APPLE iPAD 8va USD 1350,\n2- Comprar APPLE iPad 10ma generacion USD 1500,\n3- Comprar MacBook Air PRO USD 3500,\n4- Finalizar compra / salir";
-
-    do {
-        opcion = Number(prompt(mensaje));
-        switch (opcion) {
-            case 1:
-                alert('Se agregó una APPLE iPAD 8va generacion al carrito');
-                total += 1350;
-                break;
-            case 2:
-                alert('Se agregó una APPLE iPad 10ma generacion al carrito');
-                total += 1500;
-                break;
-            case 3:
-                alert('Se agregó un MacBook Air PRO al carrito');
-                total += 3500;
-                break;
-            case 4:
-                let finalizar = prompt("Desea finalizar la compra? Si o No").toLowerCase();
-                if (finalizar === "si") {
-                    alert("El total a pagar es USD " + total);
-                } else if (finalizar === "no") {
-                    total = 0;
-                    alert("Puedes seguir con tu compra");
-                }
-                break;
-            default:
-                alert("Opción inválida. Por favor, elija una opción válida.");
-        }
-    } while (opcion !== 4);
-}
-
-function mostrarAccesorios() {
-    let opcion;
-    let total = 0;
-    let mensaje =
-        "Ingrese qué producto desea comprar:\n1- Comprar APPLE AIRPODS MAX USD 800,\n2- Comprar APPLE MAG SAFE USD 100,\n3- Comprar Smart KeyBoard PRO USD 950,\n4- Finalizar compra / salir";
-
-    do {
-        opcion = Number(prompt(mensaje));
-        switch (opcion) {
-            case 1:
-                alert('Se agregó un APPLE AIRPODS MAX al carrito');
-                total += 800;
-                break;
-            case 2:
-                alert('Se agregó una funda APPLE MAG SAFE al carrito');
-                total += 100;
-                break;
-            case 3:
-                alert('Se agregó un Smart KeyBoard PRO al carrito');
-                total += 950;
-                break;
-            case 4:
-                let finalizar = prompt("Desea finalizar la compra? Si o No").toLowerCase();
-                if (finalizar === "si") {
-                    alert("El total a pagar es USD " + total);
-                } else if (finalizar === "no") {
-                    total = 0;
-                    alert("Puedes seguir con tu compra");
-                }
-                break;
-            default:
-                alert("Opción inválida. Por favor, elija una opción válida.");
-        }
-    } while (opcion !== 4);
-}
-
-
-InicioDeSesion();
-alert("Te encuentras en la sección previa a la tienda de ventas donde encontrarás todos nuestros productos. Presiona ENTER para que te redirijamos a la elección de los productos");
-menuPrincipal();
