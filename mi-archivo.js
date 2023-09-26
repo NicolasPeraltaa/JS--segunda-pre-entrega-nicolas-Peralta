@@ -1,21 +1,16 @@
 let productos = [
-    { id: 1, nombre: "IPHONE 15 PLUS", categoria: "celulares", stock: 8, precio: 2300 },
-    { id: 2, nombre: "IPHONE 15", categoria: "celulares", stock: 5, precio: 1990 },
-    { id: 3, nombre: "IPHONE 15 PRO MAX", categoria: "celulares", stock: 4, precio: 2599 },
-    { id: 4, nombre: "IPHONE 14 PRO MAX", categoria: "celulares", stock: 0, precio: 1899 },
-    { id: 5, nombre: "IPHONE 14 PRO", categoria: "celulares", stock: 2, precio: 1600 },
-    { id: 6, nombre: "APPLE AIRPODS - GEN 3", categoria: "accesorios", stock: 4, precio: 499 },
-    { id: 7, nombre: "APPLE AIRPODS - GEN 4", categoria: "accesorios", stock: 4, precio: 350 },
-    { id: 8, nombre: "APPLE KEYBOARD - GEN 1", categoria: "accesorios", stock: 4, precio: 280 },
-    { id: 9, nombre: "APPLE MACBOOK - GEN3", categoria: "computadores", stock: 1, precio: 7500 },
-    { id: 10, nombre: "APPLE MAC CHIP M1", categoria: "computadores", stock: 1, precio: 2500 },
-    { id: 11, nombre: "APPLE MAC CHIP M2", categoria: "computadores", stock: 1, precio: 4350 },
-    { id: 12, nombre: "APPLE iPAD 10", categoria: "tablets", stock: 1, precio: 1200 },
-    { id: 13, nombre: "APPLE iPAD 8", categoria: "tablets", stock: 0, precio: 800 },
-    { id: 14, nombre: "APPLE iPAD", categoria: "tablets", stock: 0, precio: 359 },
-    { id: 15, nombre: "IPHONE 13", categoria: "celulares", stock: 1, precio: 750 },
-    { id: 16, nombre: "IPHONE SE 2021", categoria: "celulares", stock: 0, precio: 650 },
-    { id: 17, nombre: "IPHONE 13 PRO MAX", categoria: "celulares", stock: 2, precio: 999 },
+    { id: 1, nombre: "IPHONE 15 PLUS", categoria: "celulares", stock: 8, precio: 2300, imagen: "iphone-15-plus.jpg"},
+    { id: 2, nombre: "IPHONE 15 PRO MAX", categoria: "celulares", stock: 4, precio: 2599, imagen:"iphone15-promax.jpeg"},
+    { id: 3, nombre: "IPHONE 14 PRO MAX", categoria: "celulares", stock: 0, precio: 1899, imagen:"iphone14promax.jpg"},
+    { id: 4, nombre: "IPHONE 14 PRO", categoria: "celulares", stock: 2, precio: 1600, imagen:"iphone14pro.jpg"},
+    { id: 5, nombre: "APPLE AIRPODS - GEN 3", categoria: "accesorios", stock: 4, precio: 499, imagen:"airpods-gen-3.jpg"},
+    { id: 6, nombre: "APPLE AIRPODS - GEN 4", categoria: "accesorios", stock: 4, precio: 350, imagen:"airpodsgen4.jpg"},
+    { id: 7, nombre: "APPLE MACBOOK PRO", categoria: "computadores", stock: 1, precio: 2500, imagen:"mcbookpro.jpg"},
+    { id: 8, nombre: "APPLE MAC CHIP M2", categoria: "computadores", stock: 1, precio: 4350, imagen:"chipm2mac.webp"},
+    { id: 9, nombre: "APPLE iPAD 10", categoria: "tablets", stock: 1, precio: 1200, imagen:"apple-ipad10.jpg"},
+    { id: 10, nombre: "APPLE iPAD 8", categoria: "tablets", stock: 0, precio: 800, imagen:"appleipad8.jpg"},
+    { id: 11, nombre: "APPLE iPAD", categoria: "tablets", stock: 0, precio: 359, imagen:"ipad-air.jpeg"},
+    { id: 12, nombre: "IPHONE 13", categoria: "celulares", stock: 1, precio: 750, imagen:"iphone13.jpg"},
 ]
 alert("Bienvenido a iPlace, la tienda lider de Apple en Uruguay. PRESIONA ENTER PARA INICIAR SESION!")
 principal(productos)
@@ -141,16 +136,15 @@ function finalizarCompra(carrito) {
     } else {
         let total = carrito.reduce((acum, producto) => acum + producto.subtotal, 0);
         let detalleCompra = "Su compra es:\n";
-        
+
         for (const producto of carrito) {
             detalleCompra += producto.nombre + " - PRECIO USD " + producto.precioUnitario + " - CANTIDAD " + producto.unidades + "\n";
         }
-        
+
         alert(detalleCompra + "El total a pagar es USD " + total);
         alert("Gracias por su compra");
     }
-}   
-
+}
 
 
 
