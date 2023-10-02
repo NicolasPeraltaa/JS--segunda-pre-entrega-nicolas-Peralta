@@ -16,6 +16,10 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div id="buscador">
+                <input type="text" id="inputBusqueda" placeholder="Buscar productos...">
+                <button onclick="buscarProductos()">Buscar</button>
+            </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -25,18 +29,22 @@
                         <a class="nav-link" href="#">CONTACTANOS</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
             </div>
+            
         </div>
     </nav>
 </header>
-    <main>
-        <div id="contenedorProductos"></div>
-    </main>
-    <footer>
+<main>
+    <div id="carritoContainer">
+        <button id="verCarritoBtn" onclick="mostrarCarrito()">Ver Carrito</button>
+        <div id="carrito">
+        </div>
+    </div>
+
+    <div id="contenedorProductos" class="container-cards"></div>
+</main>
+
+<footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -64,7 +72,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+</footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

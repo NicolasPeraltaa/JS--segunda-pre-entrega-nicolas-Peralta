@@ -12,86 +12,12 @@ let productos = [
     { id: 11, nombre: "APPLE iPAD", categoria: "tablets", stock: 0, precio: 359, imagen:"ipad-air.jpeg"},
     { id: 12, nombre: "IPHONE 13", categoria: "celulares", stock: 1, precio: 750, imagen:"iphone13.jpg"},
 ]
-alert("Bienvenido a iPlace, la tienda lider de Apple en Uruguay. PRESIONA ENTER PARA INICIAR SESION!")
-principal(productos)
+
+// principal(productos)
 function principal(productos) {
     let carrito = []
     let opcion;
-    if (!InicioDeSesion()) {
-        alert("Agotaste tus intentos, volvé más tarde.")
-        return
-    }
-    do {
-        opcion = Number(prompt("Ingrese opción:\n1 - Listar productos\n2 - Filtrar por categoría\n3 - Agregar producto al carrito\n4 - Ordenar por precio asc\n5 - Finalizar compra\n0 - Para salir"))
-
-        switch (opcion) {
-            case 1:
-                alert(listar(productos))
-                break
-            case 2:
-                alert(filtrarPorCategoria(productos))
-                break
-            case 3:
-                alert(agregarProductoAlCarrito(productos, carrito))
-                break
-            case 4:
-                productos = ordenarProductos(productos, 'precio', true)
-                alert("Productos ordenados por precio ascendente:\n" + listar(productos))
-                break
-            case 5:
-                finalizarCompra(carrito)
-                carrito = []
-                break
-            default:
-                break;
-        }
-    } while (opcion !== 0)
 }
-
-function listar(productos) {
-    return productos.map(producto => producto.id + " - " + producto.nombre + " - USD" + producto.precio).join("\n")
-}
-function obtenerCategorias(productos) {
-    let categorias = productos.map(producto => producto.categoria);
-    return [...new Set(categorias)]
-}
-function filtrarPorCategoria(productos) {
-    let categoriasDisponibles = obtenerCategorias(productos)
-    let categoriaSeleccionada = prompt("Ingrese la categoría que desea filtrar:\n Categorías disponibles: " + categoriasDisponibles.join(", "))
-
-    let productosFiltrados = productos.filter(producto => producto.categoria.toLowerCase() === categoriaSeleccionada)
-
-    if (productosFiltrados.length === 0) {
-        return "No se encontraron productos en la categoría seleccionada."
-    } else {
-        return "Productos en la categoría " + categoriaSeleccionada + ":\n" + listar(productosFiltrados)
-    }
-}
-function InicioDeSesion() {
-    const usuarioBD = "Nico123";
-    const contraseniaBD = "Nico123456";
-    let contador = 0;
-    let inicioCorrecto = false;
-    do {
-        const usuario = prompt("Ingrese usuario")
-        const contrasenia = prompt("Ingrese contraseña")
-        contador++
-
-        if (usuario === usuarioBD && contrasenia === contraseniaBD) {
-            alert("Bienvenido " + usuario);
-            return true
-        } else {
-            alert("Usuario y/o contraseña incorrecto/s");
-        }
-    } while (contador < 3)
-    return false
-
-    if (contador === 3 && !inicioCorrecto) {
-        alert("Agotaste tus intentos, volvé más tarde");
-
-    }
-}
-
 function agregarProductoAlCarrito(productos, carrito) {
     let id = Number(prompt("Seleccione el producto por id:\n" + listar(productos)))
     let buscarProducto = productos.find(producto => producto.id === id)
@@ -145,6 +71,107 @@ function finalizarCompra(carrito) {
         alert("Gracias por su compra");
     }
 }
+document.addEventListener('DOMContentLoaded', function () {
+    const contenedorProductos = document.getElementById('contenedorProductos');
 
+    productos.forEach(producto => {
+        const card = document.createElement('div');
+        card.classList.add('card');
 
+        card.innerHTML = `
+            <img src="./assets/img/${producto.imagen}" alt="${producto.nombre}">           
+            <h3>${producto.nombre}</h3>
+            <p>Precio: USD ${producto.precio}</p>
+            <p>Stock: ${producto.stock}</p>
+            <button onclick="agregarProductoAlCarrito(productos, carrito, ${producto.id})">Agregar al carrito</button>
+        `;
 
+        contenedorProductos.appendChild(card);
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const contenedorProductos = document.getElementById('contenedorProductos');
+    const inputBusqueda = document.getElementById('inputBusqueda');
+    const verCarritoBtn = document.getElementById('verCarritoBtn');
+    const carritoContainer = document.getElementById('carrito');
+    let carrito = [];
+
+    function renderizarProductos(productos) {
+        contenedorProductos.innerHTML = '';
+
+        productos.forEach(producto => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            card.innerHTML = `
+                <img src="./assets/img/${producto.imagen}" alt="${producto.nombre}">           
+                <h3>${producto.nombre}</h3>
+                <p>Precio: USD ${producto.precio}</p>
+                <p>Stock: ${producto.stock}</p>
+                <button onclick="agregarProductoAlCarrito(${producto.id})">Agregar al carrito</button>
+            `;
+
+            contenedorProductos.appendChild(card);
+        });
+    }
+
+    window.buscarProductos = function () {
+        const busqueda = inputBusqueda.value.toLowerCase();
+        const productosFiltrados = productos.filter(producto => producto.nombre.toLowerCase().includes(busqueda));
+        renderizarProductos(productosFiltrados);
+    };
+
+    window.mostrarCarrito = function () {
+        carritoContainer.innerHTML = '';
+    
+        if (carrito.length === 0) {
+            carritoContainer.innerHTML = '<p>El carrito está vacío</p>';
+        } else {
+            carrito.forEach(producto => {
+                const itemCarrito = document.createElement('div');
+                itemCarrito.classList.add('carrito-item');
+                itemCarrito.innerHTML = `
+                    <p>${producto.nombre} - Cantidad: ${producto.unidades} - Subtotal: USD ${producto.subtotal}</p>
+                `;
+                carritoContainer.appendChild(itemCarrito);
+            });
+    
+            const totalCarrito = document.createElement('p');
+            totalCarrito.id = 'carritoTotal';
+            totalCarrito.textContent = `Total: USD ${calcularTotalCarrito()}`;
+            carritoContainer.appendChild(totalCarrito);
+        }
+    };
+    
+    function calcularTotalCarrito() {
+        return carrito.reduce((total, producto) => total + producto.subtotal, 0).toFixed(2);
+    }
+    
+    window.agregarProductoAlCarrito = function (id) {
+        const producto = productos.find(p => p.id === id);
+        if (producto.stock > 0) {
+            const carritoIndex = carrito.findIndex(item => item.id === id);
+            if (carritoIndex !== -1) {
+                carrito[carritoIndex].unidades++;
+                carrito[carritoIndex].subtotal = carrito[carritoIndex].unidades * carrito[carritoIndex].precioUnitario;
+            } else {
+                carrito.push({
+                    id: producto.id,
+                    nombre: producto.nombre,
+                    precioUnitario: producto.precio,
+                    unidades: 1,
+                    subtotal: producto.precio,
+                });
+            }
+            producto.stock--;
+            mostrarCarrito();
+        } else {
+            alert('No contamos con stock de este producto en específico');
+        }
+    };
+
+    // Resto de tu código...
+
+    // Llama a la función para renderizar los productos al cargar la página
+    renderizarProductos(productos);
+});

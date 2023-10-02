@@ -9,7 +9,6 @@ body {
     background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
 }
 
-/* Estilo para el título */
 .navbar-brand {
     font-family: 'Arial', sans-serif;
     font-size: 24px;
@@ -55,4 +54,117 @@ footer a {
 
 footer a:hover {
     color: red;
+}
+
+.container-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 25%);
+    grid-template-rows: repeat(2, auto);
+    justify-content: center;
+    justify-items: 100px;
+    gap: center;
+    justify-items: center;
+}
+
+.card {
+    background-color: white;
+    padding: 0.625rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 0.3125rem;
+    justify-items: center;
+    margin-bottom: 30px;
+    height: content;
+    width: 500px;
+    justify-content: space-around;
+    margin-right: 20px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    object-fit: cover;
+
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card h3 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.card p {
+    margin-bottom: 10px;
+    font-family: 'Verdana', sans-serif;
+    color: black;
+    text-align: center;
+}
+
+.card button {
+    background-color: #FF5733;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card button:hover {
+    background-color: #FFA500;
+}
+#verCarritoBtn {
+    margin-left: auto;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 550px;
+}
+
+#verCarritoBtn:hover {
+    background-color: #0056b3;
+}
+
+#carritoContainer {
+    border: 10px solid white;
+    border-radius: 40px 40 40px 40px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.carrito-item {
+    border-bottom: 2px solid black;
+    padding: 10px 0;
+    margin-right: 50px;
+}
+
+.carrito-item:last-child {
+    border-bottom: none;
+}
+
+.carrito-item p {
+margin: 0;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+font-size: 20px;
+font-weight: 400;
+}
+
+#carritoTotal {
+    font-weight: bold;
+    margin-top: 10px;
+}
+#buscador{
+    margin-left: 150px;
 }
