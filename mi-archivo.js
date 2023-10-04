@@ -13,6 +13,7 @@ let productos = [
     { id: 12, nombre: "IPHONE 13", categoria: "celulares", stock: 1, precio: 750, imagen:"iphone13.jpg"},
 ]
 
+carrito = [];
 // principal(productos)
 function principal(productos) {
     let carrito = []
